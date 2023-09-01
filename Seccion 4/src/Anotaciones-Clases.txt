@@ -62,3 +62,103 @@ const App = () => {
 export default App
 
 Lo que aca se intenta mostrar es como dependiendo de un factor se muestra una cosa o la otra en el navegador. 
+
+
+-----------------------CLASE 28
+
+import Button from "./Button.jsx";
+
+
+const arr = [
+  'chanchito feliz',
+  'chanchito triste',
+  'chanchito emocionado',
+]
+
+
+const App = () => {
+
+  const miVariable = false
+  if(miVariable){
+    return <p>Mi variable dio true</p>
+  }
+  return(
+    <div>
+      <h1 onClick={(e) => console.log('click', e)}>Hola mundo</h1>
+      {arr.map((el)=> <p key={el}>{el}</p>)}
+     <Button onClick={() => console.log('Clickeado NASH')} > 
+     Enviar
+     </Button>
+    </div>
+  )
+}
+
+
+
+export default App
+
+-----------------------CLASE 29 ANATOMIA DE UN COMPONENTE DE CLASES
+
+import { Component } from 'react'
+
+class App extends Component {
+  render(){
+    return(
+      <p>
+        Hola Mundo
+      </p>
+    )
+  }
+}
+
+export default App
+
+
+-----------------------CLASE 30 STATE
+
+El estado es algo de lo cual tu puede acceder directamente a los componenetes que se an creado con los componenetesde clases
+El metodo de render se ejecuta siempre, absolutamente siempre en dos condiciones la primera es que el estado del componenete haya cambiado, (con setState, en este caso) y el otro es cuando el metodo render de un componenete padre, tambien se haya llamado, por lo que los hijos, tambien lo hacen.
+Los estados se los podemos pasar a otros componenetes.
+En los componentes funcionales, se usan los hooks para el state y setState.
+
+import { Component } from 'react'
+
+class App extends Component {
+
+  state = {
+    valor: 3
+  }
+
+  render(){
+    console.log(this.state)
+    return(
+      <div>
+        <p> Hola Mundo</p>
+
+        <button onClick={() => this.setState ({valor: 2}) }>
+        Enviar
+        </button>
+      </div>
+    )
+  }
+}
+
+export default App
+
+
+
+---------------------------------------CLASE 33 CICLO DE VIDA DE LOS COMPONENETES.
+
+Montando un componenete.
+Cuando nostros mostamos un comonente por primera vez lo que se va a ejecutar es el construcctor, se utiliza para que nosotros podamos setear props en el componente.
+Tambien podemos usar el contrsuctor para mandar el contexto de this en el mismo.
+
+Luego de que se monta el componente se ejecuta el metodo de render, luego de eso react actualiza el dom y si hay diferencia entre lo que react dom tienen y el navegador lo actualiza. Y despues de eso, si implementamos el metodo componentDidMount, en el se va a ejecutar todo lo que le pusimos para que cuando se monte el componente, se muestre
+
+Actualziando el compoenente. 
+Acá se actualiza cuando llamamos a setState, tambien se llama a render, y en el caso de que se actualice, y en ese caso se ejecuta el metodo de render de componentDidmount, y una vez que ya se actualizo se ejecut el componentDidUpdate-
+La gran diferencia que existe entre el component did update, y el component did mount, es que este se ba a ejecutar solamente una vez, y update se ejecuta multiples veces.
+
+Desmontado de un componente
+Esto es cuando nosotros ya no vamos a mostrarle al usuario nada del componente. Cuando se confirma que va a ser eliminado, se ejecuta el metodo de componenteWillUnmount
+
