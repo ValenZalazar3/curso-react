@@ -1,57 +1,42 @@
 import { Component } from 'react'
 
 
-class Button extends Component {
-  state = {}
-  constructor(props){
-    super(props)
-    console.log('constructor', props)
-  }
-
-  componentDidMount(){
-    console.log('componentDidMount')
-  }
-
-  componentDidUpdate(prevProp, prevState){
-    console.log('componenDidUpdate', prevProp, prevState)
-
-  }
-
-  componentWillUnmount(){
-    console.log('Desmontando el compoenente', this.props, this.state)
-  }
-  
+class Input extends Component {
+ 
   render(){
-    console.log('ejecutando metodo de render de button')
     return(
-      <button onClick={() => this.setState({ prop: 1})}>
-        Enviar
-      </button>
+      <input
+      value={this.props.value}
+      onChange={this.props.onChange}
+      />
     )
   }
 }
 
 
 class App extends Component {
-
   state = {
-    valor: 3
+    nombre: '',
+    apellido: '',
   }
 
-  render(){
-    console.log(this.state)
-    return(
-      <div>
-        <p> Hola Mundo</p>
-        {this.state.valor === 3 ?
-        <Button 
-        chanchito= 'Feliz'/> : null}
-        <button onClick={() => this.setState ({valor: 2}) }>
-        Enviar en App
-        </button>
-      </div>
-    )
+  updateValues = (prop, value) => {
+    this.setState({[prop]: value})
   }
+render(){
+  return(
+    <p>
+      Nombre completo: {` ${this.state.nombre} ${this.state.apellido} `}
+      <Input 
+      value={this.state.nombre} 
+      onChange={ e => this.updateValues('nombre', e.target.value)}/>
+      <Input 
+      value={this.state.apellido}
+      onChange={ e => this.updateValues('apellido', e.target.value)} />
+    </p>
+    )
+}
+  
 }
 
 export default App
