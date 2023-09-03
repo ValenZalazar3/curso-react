@@ -165,27 +165,21 @@ Esto es cuando nosotros ya no vamos a mostrarle al usuario nada del componente. 
 ---------------------------------------CLASE 34 a 36 montando, actualizando y desmontando el componente
 import { Component } from 'react'
 
-
 class Button extends Component {
   state = {}
   constructor(props){
     super(props)
     console.log('constructor', props)
   }
-
   componentDidMount(){
     console.log('componentDidMount')
   }
-
   componentDidUpdate(prevProp, prevState){
     console.log('componenDidUpdate', prevProp, prevState)
-
   }
-
   componentWillUnmount(){
     console.log('Desmontando el compoenente', this.props, this.state)
   }
-  
   render(){
     console.log('ejecutando metodo de render de button')
     return(
@@ -196,13 +190,10 @@ class Button extends Component {
   }
 }
 
-
 class App extends Component {
-
   state = {
     valor: 3
   }
-
   render(){
     console.log(this.state)
     return(
@@ -218,5 +209,10 @@ class App extends Component {
     )
   }
 }
-
 export default App
+
+
+
+
+--------------------------------- CLASE 37 SUBIENDO EL ESTADO 
+La clave es no dejar que el componente padre controle el estado del componente 
