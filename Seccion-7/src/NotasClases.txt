@@ -1,0 +1,131 @@
+const impura = () => new Date().toLocaleString()
+
+// funciones impura son aquellas que el valor retornado puede ser cambiante, por ejemplo la que tenemos arriba o tambien puede ser el llamado a una api o una base de datos, dado a que los datos pueden cambiar o arrojar un error.
+//  a su vez los componentes funcionales son funciones puras siempre.
+const MiComponente = ({miProp}) =>{
+  return(
+    <div>
+      Nombre: {miProp}
+    </div>
+  )
+}
+
+
+
+
+const App = () => {
+  return(
+    <MiComponente miProp={ 'chanchito feliz' }/>
+  )
+}
+export default App
+
+
+------------------------DIFERENCIA ENTRE UN COMPONENTE DE CLASE Y UNO funcionales
+import { useState } from "react"
+import { Component } from "react"
+
+
+// reglas de los Hooks:
+// No se llaman en loops, ni condiciones ni nada. Siempre en el nivel mas alto del componente
+//  Solo se llaman en dos partes, la primera en componentes de react y la segunda parte es en customs Hooks
+// Cuando creemos un custom hooks este siempre tiene que comenzar con el nombre de use* y el nombre del hook
+class App extends Component{
+
+  incrementar = () => {
+    state = {contador: 0}
+    this.setState({contador: contador + 1})
+  }
+  render(){
+    return(
+      <div>
+      Contador: this.state.contador
+      <button onClick={this.incrementar}>Incrementar</button>
+    </div>
+
+    )
+  }
+}
+// const App = () => {
+//   return(
+//     <div>
+//       Contador: {contador}
+//       <button onClick={() => setContador(contador + 1)}>Incrementar</button>
+//     </div>
+//   )
+// }
+
+export default App
+
+
+
+
+---------------------CUSTOM Hooks
+
+
+import { useState } from "react"
+
+
+
+const useContador = (inicial) => {
+  const [contador, setContador] = useState(inicial)
+  const incrementar = () => {
+    setContador(contador + 1 )
+  }
+
+  return[contador, incrementar]
+}
+const App = () => {
+  const  [contador, incrementar] = useContador(0)
+  return(
+    <div>
+      Contador: {contador}
+      <button onClick={incrementar}>Incrementar</button>
+    </div>
+  )
+}
+
+export default App
+
+
+--------------------------DESUSCRIBIRSE A UN ESTADO
+
+import { useEffect, useState } from "react"
+
+
+
+const useContador = (inicial) => {
+  const [contador, setContador] = useState(inicial)
+  const incrementar = () => {
+    setContador(contador + 1 )
+  }
+
+  return[contador, incrementar]
+}
+
+const Interval = ({contador}) => {
+  useEffect(() => {
+const i = setInterval(() => console.log(contador), 1000 )
+return () => clearInterval(i)
+}, [contador])
+  
+return(
+  <p>Intervalo</p>
+)
+}
+
+const App = () => {
+  const  [contador, incrementar] = useContador(0)
+  useEffect(() => {
+    document.title = contador
+  }, [contador])
+  return(
+    <div>
+      Contador: {contador}
+      <button onClick={incrementar}>Incrementar</button>
+      <Interval contador={contador} />
+    </div>
+  )
+}
+
+export default App
